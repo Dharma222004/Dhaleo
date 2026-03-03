@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -18,17 +19,48 @@ import { HelpCircle, Info } from "lucide-react"
 interface ScreeningResult {
     symbol: string
     company_name?: string
+    domain?: string
     sector?: string
     success: boolean
     error?: string
     matches: boolean
     current_price?: number
+    change_percent?: number
+    change_value?: number
     signals?: Record<string, boolean>
     latest_data?: {
         date: string
         volume: number
         rsi?: number
+        vwap?: number
+        volume_spike?: number
+        relative_strength?: number
     }
+}
+
+function CompanyLogo({ domain, symbol }: { domain?: string, symbol: string }) {
+    const [error, setError] = useState(false)
+
+    if (error || !domain) {
+        return (
+            <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-xs font-black text-muted-foreground/50">
+                {symbol.slice(0, 2)}
+            </div>
+        )
+    }
+
+    return (
+        <div className="h-10 w-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+            <Image
+                src={`https://logo.clearbit.com/${domain}`}
+                alt={symbol}
+                width={40}
+                height={40}
+                className="rounded-lg object-contain p-1.5"
+                onError={() => setError(true)}
+            />
+        </div>
+    )
 }
 
 const TEMPLATES = {
@@ -54,65 +86,6 @@ const STOCK_LISTS = {
     it: "IT Stocks",
 }
 
-const getCompanyLogo = (symbol: string) => {
-    const logoMap: Record<string, string> = {
-        RELIANCE: "https://logo.clearbit.com/ril.com",
-        TCS: "https://logo.clearbit.com/tcs.com",
-        HDFCBANK: "https://logo.clearbit.com/hdfcbank.com",
-        INFY: "https://logo.clearbit.com/infosys.com",
-        ICICIBANK: "https://logo.clearbit.com/icicibank.com",
-        HINDUNILVR: "https://logo.clearbit.com/unilever.com",
-        SBIN: "https://logo.clearbit.com/sbi.co.in",
-        BHARTIARTL: "https://logo.clearbit.com/airtel.in",
-        ITC: "https://logo.clearbit.com/itcportal.com",
-        KOTAKBANK: "https://logo.clearbit.com/kotak.com",
-        LT: "https://logo.clearbit.com/larsentoubro.com",
-        ASIANPAINT: "https://logo.clearbit.com/asianpaints.com",
-        MARUTI: "https://logo.clearbit.com/marutisuzuki.com",
-        AXISBANK: "https://logo.clearbit.com/axisbank.com",
-        TITAN: "https://logo.clearbit.com/titan.co.in",
-        SUNPHARMA: "https://logo.clearbit.com/sunpharma.com",
-        ULTRACEMCO: "https://logo.clearbit.com/ultratechcement.com",
-        NESTLEIND: "https://logo.clearbit.com/nestle.in",
-        WIPRO: "https://logo.clearbit.com/wipro.com",
-        HCLTECH: "https://logo.clearbit.com/hcltech.com",
-        TECHM: "https://logo.clearbit.com/techmahindra.com",
-        POWERGRID: "https://logo.clearbit.com/powergridindia.com",
-        NTPC: "https://logo.clearbit.com/ntpc.co.in",
-        ONGC: "https://logo.clearbit.com/ongcindia.com",
-        TATAMOTORS: "https://logo.clearbit.com/tatamotors.com",
-        TATASTEEL: "https://logo.clearbit.com/tatasteel.com",
-        BAJFINANCE: "https://logo.clearbit.com/bajajfinserv.in",
-        BAJAJFINSV: "https://logo.clearbit.com/bajajfinserv.in",
-        HEROMOTOCO: "https://logo.clearbit.com/heromotocorp.com",
-        BRITANNIA: "https://logo.clearbit.com/britannia.co.in",
-        DRREDDY: "https://logo.clearbit.com/drreddys.com",
-        EICHERMOT: "https://logo.clearbit.com/eichermotors.com",
-        CIPLA: "https://logo.clearbit.com/cipla.com",
-        GRASIM: "https://logo.clearbit.com/grasim.com",
-        JSWSTEEL: "https://logo.clearbit.com/jsw.in",
-        HINDALCO: "https://logo.clearbit.com/hindalco.com",
-        INDUSINDBK: "https://logo.clearbit.com/indusind.com",
-        UPL: "https://logo.clearbit.com/upl-ltd.com",
-        COALINDIA: "https://logo.clearbit.com/coalindia.in",
-        BPCL: "https://logo.clearbit.com/bharatpetroleum.in",
-        DIVISLAB: "https://logo.clearbit.com/divis.com",
-        TATACONSUM: "https://logo.clearbit.com/tatacompanies.com",
-        APOLLOHOSP: "https://logo.clearbit.com/apollohospitals.com",
-        ADANIPORTS: "https://logo.clearbit.com/adani.com",
-        ADANIENT: "https://logo.clearbit.com/adani.com",
-        TMCV: "https://logo.clearbit.com/tatamotors.com",
-        ZOMATO: "https://logo.clearbit.com/zomato.com",
-        BEL: "https://logo.clearbit.com/bel-india.in",
-        TRENT: "https://logo.clearbit.com/trentlimited.com",
-        JIOFIN: "https://logo.clearbit.com/jio.com",
-        LICI: "https://logo.clearbit.com/licindia.in",
-        INDIGO: "https://logo.clearbit.com/goindigo.in",
-        SHRIRAMFIN: "https://logo.clearbit.com/shriramfinance.in",
-        HAL: "https://logo.clearbit.com/hal-india.co.in",
-    }
-    return logoMap[symbol] || `https://ui-avatars.com/api/?name=${symbol}&background=0D8ABC&color=fff&size=40`
-}
 
 const formatVolume = (volume: number) => {
     if (volume >= 10000000) return `${(volume / 10000000).toFixed(1)}Cr`
@@ -222,7 +195,7 @@ export default function DhaleoScreener() {
                                 Market <span className="text-primary tracking-tighter">Intelligence Hub</span>
                             </h1>
                             <p className="text-muted-foreground text-lg max-w-2xl font-light mt-1">
-                               Advanced Technical Intelligence for Indian Markets.
+                                Advanced Technical Intelligence for Indian Markets.
                             </p>
                         </div>
                     </div>
@@ -230,7 +203,7 @@ export default function DhaleoScreener() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                     <div className="lg:col-span-4 space-y-6">
-                        <Card className="dashboard-card border-none shadow-lg">
+                        <Card className="border border-white/5 bg-card/10 shadow-none rounded-xl overflow-hidden backdrop-blur-sm">
                             <CardHeader className="pb-4">
                                 <div className="flex items-center justify-between">
                                     <CardTitle className="text-xl flex items-center gap-2">
@@ -300,7 +273,7 @@ export default function DhaleoScreener() {
 
                     <div className="lg:col-span-8">
                         <Tabs defaultValue="results" className="space-y-6">
-                            <div className="flex items-center justify-between bg-card p-1 rounded-xl border shadow-sm">
+                            <div className="flex items-center justify-between bg-white/[0.02] p-1 rounded-xl border border-white/5">
                                 <TabsList className="bg-transparent border-none">
                                     <TabsTrigger value="results" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-6">Results ({matchingResults.length})</TabsTrigger>
                                     <TabsTrigger value="summary" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground px-6">Analytics</TabsTrigger>
@@ -314,27 +287,90 @@ export default function DhaleoScreener() {
                                         <p className="text-muted-foreground mt-2 max-w-sm mx-auto">Configure your technical criteria and start identifying market setups.</p>
                                     </Card>
                                 ) : (
-                                    <div className="grid grid-cols-1 gap-4">
-                                        {matchingResults.map((result, index) => (
-                                            <Card key={index} className="dashboard-card overflow-hidden">
-                                                <div className="flex flex-col md:flex-row">
-                                                    <div className="p-5 sm:p-6 flex-1 border-b md:border-b-0 md:border-r border-border flex items-center gap-4 sm:gap-6">
-                                                        <img src={getCompanyLogo(result.symbol)} alt={result.symbol} className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl border border-white/10 shadow-lg bg-white/5 p-2 shrink-0" />
-                                                        <div className="min-w-0 flex-1">
-                                                            <div className="flex flex-wrap items-center gap-2">
-                                                                <h3 className="font-heading font-black text-xl sm:text-2xl tracking-tighter truncate">{result.symbol}</h3>
-                                                                {result.success && <Badge className="bg-success/10 text-success border-none font-bold uppercase text-[9px] sm:text-[10px]">Verified</Badge>}
+                                    <div className="space-y-1">
+                                        {/* Header Row */}
+                                        <div className="grid grid-cols-12 px-6 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground/30 border-b border-white/5 mb-2">
+                                            <div className="col-span-7 sm:col-span-8">Instrument</div>
+                                            <div className="col-span-3 sm:col-span-2 text-right">Price</div>
+                                            <div className="col-span-2 text-right">Chg%</div>
+                                        </div>
+
+                                        {matchingResults.map((result, index) => {
+                                            const isPositive = (result.change_percent || 0) >= 0;
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    className="flex flex-col border border-white/5 rounded-xl px-4 sm:px-6 py-4 hover:bg-white/[0.02] transition-all group active:scale-[0.99] gap-4"
+                                                >
+                                                    <div className="flex items-center justify-between gap-4">
+                                                        <div className="flex items-center gap-3 sm:gap-4 overflow-hidden">
+                                                            <CompanyLogo domain={result.domain} symbol={result.symbol} />
+                                                            <div className="flex flex-col min-w-0">
+                                                                <span className="font-heading font-semibold text-base sm:text-lg tracking-tight leading-tight truncate">{result.symbol}</span>
+                                                                <span className="text-[10px] sm:text-xs font-medium text-muted-foreground/50 truncate">{result.company_name}</span>
                                                             </div>
-                                                            <p className="text-xs sm:text-sm font-medium text-muted-foreground mt-1 truncate">{result.company_name}</p>
+                                                        </div>
+                                                        <div className="flex flex-col items-end shrink-0">
+                                                            <span className="font-heading font-semibold text-base sm:text-lg leading-tight">
+                                                                ₹{result.current_price?.toLocaleString("en-IN")}
+                                                            </span>
+                                                            <span className={`text-xs sm:text-sm font-bold ${isPositive ? 'text-success' : 'text-destructive'}`}>
+                                                                {isPositive ? '▲' : '▼'} {Math.abs(result.change_percent || 0).toFixed(2)}%
+                                                            </span>
                                                         </div>
                                                     </div>
-                                                    <div className="p-5 sm:p-6 md:w-64 bg-white/[0.02] flex flex-row md:flex-col justify-between md:justify-center items-center md:items-end text-right">
-                                                        <p className="text-[9px] sm:text-[10px] font-black uppercase text-muted-foreground tracking-widest leading-none md:mb-2">Market Price</p>
-                                                        <p className="text-2xl sm:text-3xl font-black text-primary">₹{result.current_price?.toLocaleString("en-IN")}</p>
+
+                                                    {/* Active Signals Row */}
+                                                    <div className="flex flex-wrap gap-1.5 border-t border-white/5 pt-3">
+                                                        {Object.entries(result.signals || {})
+                                                            .filter(([_, active]) => active)
+                                                            .map(([key, _]) => {
+                                                                const template = TEMPLATES[key as keyof typeof TEMPLATES];
+                                                                if (!template) return null;
+                                                                const Icon = template.icon;
+                                                                return (
+                                                                    <div key={key} className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/10 text-[9px] sm:text-[10px] font-bold text-muted-foreground group-hover:text-primary group-hover:border-primary/20 transition-colors">
+                                                                        <Icon className="h-2.5 w-2.5" />
+                                                                        {template.name}
+                                                                    </div>
+                                                                );
+                                                            })
+                                                        }
+                                                    </div>
+
+                                                    {/* Technical Metrics Summary */}
+                                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 border-t border-white/5 pt-4 opacity-80 group-hover:opacity-100 transition-opacity">
+                                                        <div className="flex flex-col gap-1">
+                                                            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">Vol Spike</span>
+                                                            <span className="text-xs font-bold font-heading">
+                                                                {result.latest_data?.volume_spike?.toFixed(2)}x
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">VWAP</span>
+                                                            <span className="text-xs font-bold font-heading">
+                                                                ₹{result.latest_data?.vwap?.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">RSI (14)</span>
+                                                            <span className={`text-xs font-bold font-heading ${(result.latest_data?.rsi || 0) > 70 ? 'text-destructive' :
+                                                                    (result.latest_data?.rsi || 0) < 30 ? 'text-success' : ''
+                                                                }`}>
+                                                                {result.latest_data?.rsi?.toFixed(2)}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex flex-col gap-1">
+                                                            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/30">Rel Strength</span>
+                                                            <span className={`text-xs font-bold font-heading ${(result.latest_data?.relative_strength || 0) > 100 ? 'text-success' : 'text-destructive'
+                                                                }`}>
+                                                                {(result.latest_data?.relative_strength || 0).toFixed(2)}
+                                                            </span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </Card>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
                                 )}
                             </TabsContent>

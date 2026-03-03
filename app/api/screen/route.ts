@@ -3,65 +3,65 @@ import type { NextRequest } from "next/server"
 // Stock lists with company info
 export const runtime = 'edge'
 const STOCK_INFO = {
-  "ADANIPORTS.NS": { name: "Adani Ports", sector: "Infrastructure" },
-  "ASIANPAINT.NS": { name: "Asian Paints", sector: "Paints" },
-  "AXISBANK.NS": { name: "Axis Bank", sector: "Banking" },
-  "BAJAJ-AUTO.NS": { name: "Bajaj Auto", sector: "Automobile" },
-  "BAJFINANCE.NS": { name: "Bajaj Finance", sector: "NBFC" },
-  "BAJAJFINSV.NS": { name: "Bajaj Finserv", sector: "Financial Services" },
-  "BPCL.NS": { name: "BPCL", sector: "Oil & Gas" },
-  "BHARTIARTL.NS": { name: "Bharti Airtel", sector: "Telecom" },
-  "BRITANNIA.NS": { name: "Britannia", sector: "FMCG" },
-  "CIPLA.NS": { name: "Cipla", sector: "Pharma" },
-  "COALINDIA.NS": { name: "Coal India", sector: "Mining" },
-  "DIVISLAB.NS": { name: "Divi's Labs", sector: "Pharma" },
-  "DRREDDY.NS": { name: "Dr Reddy's", sector: "Pharma" },
-  "EICHERMOT.NS": { name: "Eicher Motors", sector: "Automobile" },
-  "GRASIM.NS": { name: "Grasim", sector: "Cement" },
-  "HCLTECH.NS": { name: "HCL Tech", sector: "IT" },
-  "HDFCBANK.NS": { name: "HDFC Bank", sector: "Banking" },
-  "HDFCLIFE.NS": { name: "HDFC Life", sector: "Insurance" },
-  "HEROMOTOCO.NS": { name: "Hero MotoCorp", sector: "Automobile" },
-  "HINDALCO.NS": { name: "Hindalco", sector: "Metals" },
-  "HINDUNILVR.NS": { name: "Hindustan Unilever", sector: "FMCG" },
-  "ICICIBANK.NS": { name: "ICICI Bank", sector: "Banking" },
-  "ITC.NS": { name: "ITC", sector: "FMCG" },
-  "INDUSINDBK.NS": { name: "IndusInd Bank", sector: "Banking" },
-  "INFY.NS": { name: "Infosys", sector: "IT" },
-  "JSWSTEEL.NS": { name: "JSW Steel", sector: "Steel" },
-  "KOTAKBANK.NS": { name: "Kotak Bank", sector: "Banking" },
-  "LT.NS": { name: "L&T", sector: "Engineering" },
-  "M&M.NS": { name: "M&M", sector: "Automobile" },
-  "MARUTI.NS": { name: "Maruti Suzuki", sector: "Automobile" },
-  "NESTLEIND.NS": { name: "Nestle India", sector: "FMCG" },
-  "NTPC.NS": { name: "NTPC", sector: "Power" },
-  "ONGC.NS": { name: "ONGC", sector: "Oil & Gas" },
-  "POWERGRID.NS": { name: "Power Grid", sector: "Power" },
-  "RELIANCE.NS": { name: "Reliance", sector: "Oil & Gas" },
-  "SBILIFE.NS": { name: "SBI Life", sector: "Insurance" },
-  "SBIN.NS": { name: "SBI", sector: "Banking" },
-  "SUNPHARMA.NS": { name: "Sun Pharma", sector: "Pharma" },
-  "TCS.NS": { name: "TCS", sector: "IT" },
-  "TATACONSUM.NS": { name: "Tata Consumer", sector: "FMCG" },
-  "TATASTEEL.NS": { name: "Tata Steel", sector: "Steel" },
-  "TECHM.NS": { name: "Tech Mahindra", sector: "IT" },
-  "TITAN.NS": { name: "Titan", sector: "Jewellery" },
-  "UPL.NS": { name: "UPL", sector: "Chemicals" },
-  "ULTRACEMCO.NS": { name: "UltraTech Cement", sector: "Cement" },
-  "WIPRO.NS": { name: "Wipro", sector: "IT" },
-  "ADANIENT.NS": { name: "Adani Enterprises", sector: "Conglomerate" },
-  "APOLLOHOSP.NS": { name: "Apollo Hospitals", sector: "Healthcare" },
-  "LTIM.NS": { name: "LTIMindtree", sector: "IT" },
-  "FEDERALBNK.NS": { name: "Federal Bank", sector: "Banking" },
-  "PNB.NS": { name: "Punjab National Bank", sector: "Banking" },
-  "BANKBARODA.NS": { name: "Bank of Baroda", sector: "Banking" },
-  "CANBK.NS": { name: "Canara Bank", sector: "Banking" },
-  "IDFCFIRSTB.NS": { name: "IDFC First Bank", sector: "Banking" },
-  "BANDHANBNK.NS": { name: "Bandhan Bank", sector: "Banking" },
-  "LTTS.NS": { name: "L&T Technology", sector: "IT" },
-  "MINDTREE.NS": { name: "Mindtree", sector: "IT" },
-  "MPHASIS.NS": { name: "Mphasis", sector: "IT" },
-  "COFORGE.NS": { name: "Coforge", sector: "IT" },
+  "ADANIPORTS.NS": { name: "Adani Ports", sector: "Infrastructure", domain: "adani.com" },
+  "ASIANPAINT.NS": { name: "Asian Paints", sector: "Paints", domain: "asianpaints.com" },
+  "AXISBANK.NS": { name: "Axis Bank", sector: "Banking", domain: "axisbank.com" },
+  "BAJAJ-AUTO.NS": { name: "Bajaj Auto", sector: "Automobile", domain: "bajajauto.com" },
+  "BAJFINANCE.NS": { name: "Bajaj Finance", sector: "NBFC", domain: "bajajfinserv.in" },
+  "BAJAJFINSV.NS": { name: "Bajaj Finserv", sector: "Financial Services", domain: "bajajfinserv.in" },
+  "BPCL.NS": { name: "BPCL", sector: "Oil & Gas", domain: "bharatpetroleum.in" },
+  "BHARTIARTL.NS": { name: "Bharti Airtel", sector: "Telecom", domain: "airtel.in" },
+  "BRITANNIA.NS": { name: "Britannia", sector: "FMCG", domain: "britannia.co.in" },
+  "CIPLA.NS": { name: "Cipla", sector: "Pharma", domain: "cipla.com" },
+  "COALINDIA.NS": { name: "Coal India", sector: "Mining", domain: "coalindia.in" },
+  "DIVISLAB.NS": { name: "Divi's Labs", sector: "Pharma", domain: "divislabs.com" },
+  "DRREDDY.NS": { name: "Dr Reddy's", sector: "Pharma", domain: "drreddys.com" },
+  "EICHERMOT.NS": { name: "Eicher Motors", sector: "Automobile", domain: "eichermotors.com" },
+  "GRASIM.NS": { name: "Grasim", sector: "Cement", domain: "grasim.com" },
+  "HCLTECH.NS": { name: "HCL Tech", sector: "IT", domain: "hcltech.com" },
+  "HDFCBANK.NS": { name: "HDFC Bank", sector: "Banking", domain: "hdfcbank.com" },
+  "HDFCLIFE.NS": { name: "HDFC Life", sector: "Insurance", domain: "hdfclife.com" },
+  "HEROMOTOCO.NS": { name: "Hero MotoCorp", sector: "Automobile", domain: "heromotocorp.com" },
+  "HINDALCO.NS": { name: "Hindalco", sector: "Metals", domain: "hindalco.com" },
+  "HINDUNILVR.NS": { name: "Hindustan Unilever", sector: "FMCG", domain: "unilever.com" },
+  "ICICIBANK.NS": { name: "ICICI Bank", sector: "Banking", domain: "icicibank.com" },
+  "ITC.NS": { name: "ITC", sector: "FMCG", domain: "itcportal.com" },
+  "INDUSINDBK.NS": { name: "IndusInd Bank", sector: "Banking", domain: "indusind.com" },
+  "INFY.NS": { name: "Infosys", sector: "IT", domain: "infosys.com" },
+  "JSWSTEEL.NS": { name: "JSW Steel", sector: "Steel", domain: "jsw.in" },
+  "KOTAKBANK.NS": { name: "Kotak Bank", sector: "Banking", domain: "kotak.com" },
+  "LT.NS": { name: "L&T", sector: "Engineering", domain: "larsentoubro.com" },
+  "M&M.NS": { name: "M&M", sector: "Automobile", domain: "mahindra.com" },
+  "MARUTI.NS": { name: "Maruti Suzuki", sector: "Automobile", domain: "marutisuzuki.com" },
+  "NESTLEIND.NS": { name: "Nestle India", sector: "FMCG", domain: "nestle.in" },
+  "NTPC.NS": { name: "NTPC", sector: "Power", domain: "ntpc.co.in" },
+  "ONGC.NS": { name: "ONGC", sector: "Oil & Gas", domain: "ongcindia.com" },
+  "POWERGRID.NS": { name: "Power Grid", sector: "Power", domain: "powergrid.in" },
+  "RELIANCE.NS": { name: "Reliance", sector: "Oil & Gas", domain: "ril.com" },
+  "SBILIFE.NS": { name: "SBI Life", sector: "Insurance", domain: "sbilife.co.in" },
+  "SBIN.NS": { name: "SBI", sector: "Banking", domain: "sbi.co.in" },
+  "SUNPHARMA.NS": { name: "Sun Pharma", sector: "Pharma", domain: "sunpharma.com" },
+  "TCS.NS": { name: "TCS", sector: "IT", domain: "tcs.com" },
+  "TATACONSUM.NS": { name: "Tata Consumer", sector: "FMCG", domain: "tataconsumerproducts.com" },
+  "TATASTEEL.NS": { name: "Tata Steel", sector: "Steel", domain: "tatasteel.com" },
+  "TECHM.NS": { name: "Tech Mahindra", sector: "IT", domain: "techmahindra.com" },
+  "TITAN.NS": { name: "Titan", sector: "Jewellery", domain: "titan.co.in" },
+  "UPL.NS": { name: "UPL", sector: "Chemicals", domain: "upl-ltd.com" },
+  "ULTRACEMCO.NS": { name: "UltraTech Cement", sector: "Cement", domain: "ultratechcement.com" },
+  "WIPRO.NS": { name: "Wipro", sector: "IT", domain: "wipro.com" },
+  "ADANIENT.NS": { name: "Adani Enterprises", sector: "Conglomerate", domain: "adani.com" },
+  "APOLLOHOSP.NS": { name: "Apollo Hospitals", sector: "Healthcare", domain: "apollohospitals.com" },
+  "LTIM.NS": { name: "LTIMindtree", sector: "IT", domain: "ltimindtree.com" },
+  "FEDERALBNK.NS": { name: "Federal Bank", sector: "Banking", domain: "federalbank.co.in" },
+  "PNB.NS": { name: "Punjab National Bank", sector: "Banking", domain: "pnbindia.in" },
+  "BANKBARODA.NS": { name: "Bank of Baroda", sector: "Banking", domain: "bankofbaroda.in" },
+  "CANBK.NS": { name: "Canara Bank", sector: "Banking", domain: "canarabank.com" },
+  "IDFCFIRSTB.NS": { name: "IDFC First Bank", sector: "Banking", domain: "idfcfirstbank.com" },
+  "BANDHANBNK.NS": { name: "Bandhan Bank", sector: "Banking", domain: "bandhanbank.com" },
+  "LTTS.NS": { name: "L&T Technology", sector: "IT", domain: "ltts.com" },
+  "MINDTREE.NS": { name: "Mindtree", sector: "IT", domain: "mindtree.com" },
+  "MPHASIS.NS": { name: "Mphasis", sector: "IT", domain: "mphasis.com" },
+  "COFORGE.NS": { name: "Coforge", sector: "IT", domain: "coforge.com" },
 }
 
 const STOCK_LISTS = {
@@ -214,6 +214,30 @@ function calculateEMA(prices: number[], period: number): number[] {
     }
   }
   return ema
+}
+
+// VWAP (Volume Weighted Average Price)
+function calculateVWAP(prices: number[], volumes: number[], period = 20): number[] {
+  const vwap: number[] = []
+  for (let i = 0; i < prices.length; i++) {
+    if (i < period - 1) {
+      vwap.push(NaN)
+    } else {
+      const priceSlice = prices.slice(i - period + 1, i + 1)
+      const volumeSlice = volumes.slice(i - period + 1, i + 1)
+
+      let totalValue = 0
+      let totalVolume = 0
+
+      for (let j = 0; j < priceSlice.length; j++) {
+        totalValue += priceSlice[j] * volumeSlice[j]
+        totalVolume += volumeSlice[j]
+      }
+
+      vwap.push(totalVolume === 0 ? NaN : totalValue / totalVolume)
+    }
+  }
+  return vwap
 }
 
 // RSI with Wilder's smoothing (standard method)
@@ -845,8 +869,16 @@ export async function POST(request: NextRequest) {
 
               const matches = evaluateConditions(data, conditions, logic, timeframe)
               const prices = data.close.filter((p: number) => p !== null && !isNaN(p))
+              const volumes = data.volume.filter((v: number) => v !== null && !isNaN(v))
+
               const rsi = calculateRSI(prices, config.rsi.period)
               const macd = calculateMACD(prices, config.macd.fast, config.macd.slow, config.macd.signal)
+              const vwap = calculateVWAP(prices, volumes, 20)
+              const avgVolume = calculateSMA(volumes, 20)
+
+              const currentVolume = volumes[volumes.length - 1]
+              const volumeSpike = avgVolume[avgVolume.length - 1] > 0 ? currentVolume / avgVolume[avgVolume.length - 1] : 0
+              const relativeStrength = prices.length >= 50 ? (prices[prices.length - 1] / prices[prices.length - 50]) * 100 : 100
 
               // Create signals object with timeframe-specific evaluation
               const signals: Record<string, boolean> = {}
@@ -859,17 +891,23 @@ export async function POST(request: NextRequest) {
               result = {
                 symbol: symbol.replace(".NS", ""),
                 company_name: stockInfo?.name || symbol.replace(".NS", ""),
+                domain: (stockInfo as any)?.domain || "",
                 sector: stockInfo?.sector || "Unknown",
                 success: true,
                 error: null,
                 matches,
                 timeframe: timeframe,
                 current_price: prices[prices.length - 1],
+                change_percent: prices.length > 1 ? ((prices[prices.length - 1] - prices[prices.length - 2]) / prices[prices.length - 2]) * 100 : 0,
+                change_value: prices.length > 1 ? prices[prices.length - 1] - prices[prices.length - 2] : 0,
                 signals,
                 latest_data: {
                   date: new Date().toISOString().split("T")[0],
                   volume: data.volume[data.volume.length - 1] || 0,
                   rsi: rsi[rsi.length - 1],
+                  vwap: vwap[vwap.length - 1],
+                  volume_spike: volumeSpike,
+                  relative_strength: relativeStrength,
                   macd_line: macd.macdLine[macd.macdLine.length - 1],
                   macd_signal: macd.signalLine[macd.signalLine.length - 1],
                   macd_histogram: macd.histogram[macd.histogram.length - 1],

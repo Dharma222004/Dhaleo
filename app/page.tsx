@@ -29,12 +29,12 @@ export default function LandingPage() {
             className="h-20 w-20 rounded-2xl shadow-xl shadow-primary/20"
           />
 
-          <div className="space-y-3">
-            <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight text-foreground font-[family-name:var(--font-outfit)]">
-              Dhaleo <span className="text-primary">Screener</span>
+          <div className="space-y-4 mb-2">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tighter leading-none text-foreground font-[family-name:var(--font-outfit)]">
+              Dhaleo <span className="text-primary italic">Screener</span>
             </h1>
 
-            <p className="text-sm md:text-base font-medium text-muted-foreground/70 tracking-wide font-[family-name:var(--font-plus-jakarta)] uppercase">
+            <p className="text-[10px] md:text-xs font-black text-muted-foreground/40 tracking-[0.3em] font-[family-name:var(--font-plus-jakarta)] uppercase">
               AI-powered Indian market intelligence
             </p>
           </div>
@@ -43,14 +43,14 @@ export default function LandingPage() {
         {/* Card */}
         <Card className="border border-white/5 shadow-2xl p-4 bg-card/50 backdrop-blur-xl rounded-2xl">
 
-          <CardHeader className="text-center space-y-4 pb-6">
-            <CardTitle className="text-2xl md:text-3xl font-black tracking-tight leading-snug font-[family-name:var(--font-outfit)]">
+          <CardHeader className="text-center space-y-4 pb-8">
+            <CardTitle className="text-2xl md:text-3xl font-black tracking-tight leading-snug font-[family-name:var(--font-outfit)] balance">
               {session
                 ? `Welcome, ${session.user?.name?.split(" ")[0]}`
                 : "Screen with Intelligence. Invest with Conviction."}
             </CardTitle>
 
-            <CardDescription className="text-sm md:text-base font-medium text-muted-foreground/70 font-[family-name:var(--font-plus-jakarta)]">
+            <CardDescription className="text-sm md:text-base font-medium text-muted-foreground/60 font-[family-name:var(--font-plus-jakarta)] max-w-[280px] md:max-w-none mx-auto leading-relaxed">
               {session
                 ? "Your workspace is ready. Dive into market intelligence."
                 : "Structured intelligence for informed investing."}

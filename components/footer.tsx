@@ -9,9 +9,11 @@ export function Footer() {
             <div className="container mx-auto px-4 max-w-7xl">
                 <div className="flex flex-col items-center text-center gap-10">
                     <div className="space-y-4">
-                        <div className="flex items-center justify-center gap-3 text-2xl font-semibold tracking-tight">
+                        <div className="flex items-center justify-center gap-2 text-xl md:text-2xl font-semibold tracking-tight">
                             <span>Made with Love and Profit</span>
-                            <span className="text-3xl animate-pulse">💚</span>
+                            <div className="flex items-center justify-center p-1.5 bg-success/10 rounded-full">
+                                <Heart className="h-5 w-5 md:h-6 md:w-6 text-success fill-success animate-pulse" />
+                            </div>
                         </div>
 
                         <div className="space-y-2">
